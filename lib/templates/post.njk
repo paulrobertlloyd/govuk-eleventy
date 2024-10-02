@@ -1,4 +1,4 @@
-{% extends "layouts/base.njk" %}
+{% extends "templates/base.njk" %}
 
 {% block beforeContent %}
   {{ govukBreadcrumbs({
@@ -37,7 +37,7 @@
 
     {% if aside or related %}
       <div class="govuk-grid-column-one-third-from-desktop">
-        {% include "layouts/shared/related.njk" %}
+        {% include "templates/shared/related.njk" %}
       </div>
     {% endif %}
   </div>

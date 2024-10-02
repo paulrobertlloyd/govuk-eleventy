@@ -8,8 +8,9 @@ import { generateAssets } from './lib/events/generate-govuk-assets.js'
 import { md } from './lib/markdown-it.js'
 import { nunjucksConfig } from './lib/nunjucks.js'
 import { scssExtension } from './lib/extensions/scss.js'
+import { getTemplates } from './lib/utils.js'
 
-export default function (eleventyConfig, pluginOptions = {}) {
+export default async function (eleventyConfig, pluginOptions = {}) {
   const { pathPrefix } = eleventyConfig
 
   // Plugin options
@@ -22,6 +23,12 @@ export default function (eleventyConfig, pluginOptions = {}) {
   // Extensions and template formats
   eleventyConfig.addExtension('scss', scssExtension)
   eleventyConfig.addTemplateFormats('scss')
+
+  // Virtual templates
+  const templates = await getTemplates(eleventyConfig)
+  for (const [virtualPath, template] of Object.entries(templates)) {
+    eleventyConfig.addTemplate(virtualPath, template)
+  }
 
   // Collections
   for (const [name, collection] of Object.entries(collections)) {

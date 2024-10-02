@@ -1,4 +1,4 @@
-{% extends "layouts/base.njk" %}
+{% extends "templates/base.njk" %}
 
 {% block beforeContent %}
   {{ govukBreadcrumbs({
@@ -15,5 +15,5 @@
 
   {{ appProseScope(content) if content }}
 
-  {% include "layouts/shared/related.njk" %}
+  {% include "templates/shared/related.njk" %}
 {% endblock %}
