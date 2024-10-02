@@ -1,4 +1,4 @@
-{% extends "layouts/base.njk" %}
+{% extends "templates/base.njk" %}
 
 {% block main %}
   <main id="main-content" role="main" {%- if mainLang %} lang="{{ mainLang }}"{% endif %}>
@@ -27,7 +27,7 @@
         {% block content %}
           {{ appProseScope(content) if content }}
 
-          {% include "layouts/shared/related.njk" %}
+          {% include "templates/shared/related.njk" %}
         {% endblock %}
       </div>
     </div>

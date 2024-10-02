@@ -90,8 +90,7 @@ export default function (eleventyConfig) {
     htmlTemplateEngine: 'njk',
     markdownTemplateEngine: 'njk',
     dir: {
-      input: 'docs',
-      layouts: '../layouts'
+      input: 'docs'
     },
     pathPrefix: process.env.GITHUB_ACTIONS && '/govuk-eleventy-plugin/'
   }
