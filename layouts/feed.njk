@@ -3,31 +3,31 @@
   <title>{{ options.homeKey }}</title>
   <link href="{{ permalink | canonicalUrl }}" rel="self"/>
   <link href="{{ options.url }}"/>
-  <updated>{{ collections.post | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
   <id>{{ options.url }}/</id>
-  {%- for item in pagination.items %}
-  {%- set absolutePostUrl = item.url | canonicalUrl %}
-  <entry>
-    <title>{{ item.data.title }}</title>
-    <link href="{{ absolutePostUrl }}"/>
-    <updated>{{ item.date | dateToRfc3339 }}</updated>
-    <id>{{ absolutePostUrl }}</id>
-    {% if item.data.authors %}
-      {% for author in item.data.authors %}
+  {%- for item in (collections[collection] %}
+    {%- if loop.index0 < size %}
+    {%- set absolutePostUrl = item.url | canonicalUrl %}
+    <entry>
+      <title>{{ item.data.title }}</title>
+      <link href="{{ absolutePostUrl }}"/>
+      <id>{{ absolutePostUrl }}</id>
+      {% if item.data.authors %}
+        {% for author in item.data.authors %}
+          <author>
+            <name>{{ author.name }}</name>
+            {% if author.url %}<uri>{{ author.url }}</uri>{% endif %}
+          </author>
+        {% endfor %}
+      {% elif item.data.author %}
         <author>
-          <name>{{ author.name }}</name>
-          {% if author.url %}<uri>{{ author.url }}</uri>{% endif %}
+          <name>{{ item.data.author.name }}</name>
+          {% if item.data.author.url %}<uri>{{ item.data.author.url }}</uri>{% endif %}
         </author>
-      {% endfor %}
-    {% elif item.data.author %}
-      <author>
-        <name>{{ item.data.author.name }}</name>
-        {% if item.data.author.url %}<uri>{{ item.data.author.url }}</uri>{% endif %}
-      </author>
-    {% endif %}
-    <content xml:lang="{{ language or "en" }}" type="html">
-      <![CDATA[ {{ item.templateContent | htmlToAbsoluteUrls(absolutePostUrl) }} ]]>
-    </content>
-  </entry>
+      {% endif %}
+      <content xml:lang="{{ language or "en" }}" type="html">
+        <![CDATA[ {{ item.templateContent | htmlToAbsoluteUrls(absolutePostUrl) }} ]]>
+      </content>
+    </entry>
+    {%- endif %}
   {%- endfor %}
 </feed>

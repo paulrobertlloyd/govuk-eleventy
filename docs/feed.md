@@ -16,10 +16,8 @@ To create a feed, add a file named `feed.njk` with the following content:
 eleventyExcludeFromCollections: true
 layout: feed
 permalink: /feed.xml
-pagination:
-  data: collections.post
-  size: 20
-  reverse: true
+collection: post
+size: 20
 ---
 ```
 
@@ -27,7 +25,7 @@ The `permalink` value is the location of the generated feed.
 
 ## Create a collection of pages
 
-The feed will include all pages in the collection referenced by the `data` key of the `pagination` object.
+The feed will include pages in the collection referenced in the `collection` key, up to a maximum specified in `size`, with the newest first.
 
 You can create a collection by adding some code to your `eleventy.config.js`:
 
